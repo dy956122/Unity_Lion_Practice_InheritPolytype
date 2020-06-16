@@ -36,6 +36,7 @@ public class People : MonoBehaviour
     public void Dead()
     {
         ani.SetTrigger("死亡");               // 動畫控制器.設定觸發("死亡")
+        agent.isStopped = true;              // 停止 Nav 在角色死亡後 繼續導覽移動
         Destroy(gameObject, 1.5f);           // 刪除(遊戲物件,秒數)
     }
 }
