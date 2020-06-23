@@ -8,7 +8,7 @@ public class PeopleFarAttack : PeopleTrack
     [Header("子彈")]
     public GameObject bullet;
     [Header("冷卻時間"), Range(0.1f, 3f)]
-    public float CD = 1.5f;
+    public float cd = 1.5f;
 
     private float timer;
 
@@ -21,8 +21,10 @@ public class PeopleFarAttack : PeopleTrack
 
     protected override void Track()
     {
+        if (target == null) return;                     // 如果 目標為空值 跳出
+
         agent.SetDestination(target.position);
-        transform.LookAt(target);
+        transform.LookAt(target);                       // 變形.看著(目標)
 
         if (agent.remainingDistance <= stop) Attack(); // 如果 Nav的代理器.距離 < 停止距離，就攻擊
     }
@@ -35,11 +37,11 @@ public class PeopleFarAttack : PeopleTrack
         timer += Time.deltaTime;    // 計時器 累加 時間
 
         // 如果 計時器 >= 冷卻時間
-        if (timer >= CD)
+        if (timer >= cd)
         {
             timer = 0;              // 計時器歸零
             ani.SetTrigger("攻擊");                                                                                             // 攻擊動畫
-            GameObject temp = Instantiate(bullet, transform.position + transform.forward + transform.up, transform.rotation); // 生成子彈
+            GameObject temp = Instantiate(bullet, transform.position + transform.forward + transform.up, transform.rotation);  // 生成子彈
             Rigidbody rig = temp.AddComponent<Rigidbody>();                                                                    // 添加元件
             rig.AddForce(transform.forward * 1500);                                                                            // 子彈添加推力
         }
