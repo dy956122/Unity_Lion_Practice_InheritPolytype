@@ -27,10 +27,10 @@ public class PeopleRun : People
         if (agent.remainingDistance < 1.5f)
         {
 
-            // 隨機座標 = 隨機.球內隨機點 * 半徑 + 中心點
+            // 隨機座標 = 隨機.球內隨機點 * 半徑 + 中心點，換句話說就是從中心點發出 半徑 5 單位 的圓 作為 偵測範圍
             Vector3 pointRan = Random.insideUnitSphere * 5 + transform.position;
 
-            // 導覽網格碰撞 碰撞點
+            // 導覽網格碰撞 碰撞點 ，在此段的意思為 創建 一個給導覽器 碰撞偵測用的點
             NavMeshHit hit;
 
             // 導覽網格.樣本座標(座標,碰撞點,半徑,圖層)
@@ -41,7 +41,7 @@ public class PeopleRun : People
             // 最終座標 = 碰撞點.座標
             final = hit.position;
 
-            // 代理器：設定目的地(座標 - 三維向量)
+            // 代理器：設定目的地(座標 - 三維向量)，也就是說 設定一目標，讓導覽器移動過去
             agent.SetDestination(final);
         }
 
